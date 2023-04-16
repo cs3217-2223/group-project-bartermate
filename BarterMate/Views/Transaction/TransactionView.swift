@@ -52,24 +52,27 @@ struct TransactionView: View {
                     ItemImageView(item: item)
                 }
             }, showModal: $showModal))
-            VStack {
-                Spacer()
-                
-                HStack {
+            if !viewModel.transaction.hasLockedOffer.contains(viewModel.user.id)
+                && viewModel.transaction.state == .INITIATED {
+                VStack {
                     Spacer()
                     
-                    Button(action: {
-                        addOffer = true
-                    }) {
-                        Image(systemName: "plus")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding(20)
-                            .background(Color.blue)
-                            .clipShape(Circle())
+                    HStack {
+                        Spacer()
+                        
+                        Button(action: {
+                            addOffer = true
+                        }) {
+                            Image(systemName: "plus")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding(20)
+                                .background(Color.blue)
+                                .clipShape(Circle())
+                        }
+                        .padding(.trailing, 20)
+                        .padding(.bottom, 20)
                     }
-                    .padding(.trailing, 20)
-                    .padding(.bottom, 20)
                 }
             }
         }.sheet(isPresented: $addOffer) {
