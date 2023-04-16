@@ -44,6 +44,16 @@ struct TransactionView: View {
                         
                     }
                 }
+                NavigationLink(
+                    "",
+                    destination: LazyView {
+                        OfferSelectionView(userId: viewModel.user.id,
+                                           transaction: viewModel.transaction,
+                                           addOffer: $addOffer)
+                    },
+                    isActive: $addOffer
+                )
+                .hidden()
             }.onAppear {
                 print("view appear")
                 viewModel.update()
@@ -75,10 +85,6 @@ struct TransactionView: View {
                     }
                 }
             }
-        }.sheet(isPresented: $addOffer) {
-            OfferSelectionView(userId: viewModel.user.id,
-                               transaction: viewModel.transaction,
-                               addOffer: $addOffer)
         }
     }
 }
